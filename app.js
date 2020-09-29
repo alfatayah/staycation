@@ -8,7 +8,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 //import mongoose
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/db_bwamern", {
+mongoose.connect("mongodb://127.0.0.1:27017/db_staycation", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -20,6 +20,7 @@ var usersRouter = require("./routes/users");
 
 //router admin
 const adminRouter = require("./routes/admin");
+const apiRouter = require("./routes/api");
 
 var app = express();
 
@@ -32,7 +33,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 60000 }
+  cookie: { maxAge: 300000 }
 }))
 app.use(flash());
 
@@ -48,8 +49,10 @@ app.use(
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+
 //admin
 app.use("/admin", adminRouter);
+app.use("/api/v1/member", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
