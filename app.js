@@ -8,7 +8,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 //import mongoose
 const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://alfatayah:satelit@cluster0.ahqs8.mongodb.net/db_staycation?retryWrites=true&w=majority", {
+mongoose.connect("mongodb://127.0.0.1:27017/staycation", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -33,7 +33,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 300000 }
+  cookie: { maxAge:  6 * 60 * 60 * 1000 }
 }))
 app.use(flash());
 
